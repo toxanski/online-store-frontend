@@ -14,4 +14,4 @@ const TitleTag = ({ tagName, children }: TitleTagProps): JSX.Element => {
     }
 };
 
-export default TitleTag;
+export { TitleTag };
