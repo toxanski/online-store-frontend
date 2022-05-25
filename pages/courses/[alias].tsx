@@ -9,7 +9,7 @@ import { ProductModel } from "../../interfaces/product.interface";
 const Course: NextPage<CourseProps> = ({ menu, page, products, firstCategory }: CourseProps) => {
     return (
         <>
-            {products.length}
+            {products && products.length}
         </>
     );
 };
@@ -23,8 +23,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
         `${process.env.NEXT_PUBLIC_DOMAIN}/api/top-page/find`,
         { firstCategory: FIRST_CATEGORY }
     );
-
-    console.log(menu.flatMap(item => item.pages.map(page => `/courses/${page.alias}`)));
 
     return {
         paths: menu.flatMap(item => item.pages.map(page => `/courses/${page.alias}`)),
@@ -48,7 +46,7 @@ export const getStaticProps: GetStaticProps = async ({ params }: GetStaticPropsC
     // params.alias т.к. страница сама [alias].tsx
     const reqAlias = params.alias;
     const { data: page } = await axios.get<TopPageModel>(
-        `${process.env.NEXT_PUBLIC_DOMAIN}/api/top-page/byAlias${reqAlias}`
+        `${process.env.NEXT_PUBLIC_DOMAIN}/api/top-page/byAlias/${reqAlias}`
     );
 
     const { data: products } = await axios.post<ProductModel[]>(

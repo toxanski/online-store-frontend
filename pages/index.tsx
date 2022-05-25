@@ -8,6 +8,7 @@ import { MenuItem } from "../interfaces/menu.interfaces";
 const Home: NextPage<HomeProps> = ({ menu, firstCategory }: HomeProps): JSX.Element => {
     const [rating, setRating] = useState<number>(2);
 
+    const variable = 123;
     return (
         <>
             <TitleTag tagName="h1">TITLE</TitleTag>
