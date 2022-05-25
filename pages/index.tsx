@@ -32,7 +32,6 @@ const Home: NextPage<HomeProps> = ({ menu, firstCategory }: HomeProps): JSX.Elem
             <Tag size="lg" color="green">Кр.Бол.</Tag>
             <Tag size="sm" color="grey">Кр.Бол.</Tag>
             <Rating rating={rating} isEditable={true} setRating={setRating}/>
-            { menu.map(item => (<li key={item._id.secondCategory}>{item._id.secondCategory}</li>)) }
         </>
     );
 };

@@ -1,11 +1,11 @@
-enum TopPageCategory {
+export enum TopPageCategory {
     Courses,
     Services,
     Books,
     Products
 }
 
-interface TopPageAdvantage {
+export interface TopPageAdvantage {
     title: string;
     description: string;
     _id: string;
