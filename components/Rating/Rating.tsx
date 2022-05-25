@@ -11,8 +11,6 @@ const Rating = ({ isEditable = false, rating, setRating, ...props }: RatingProps
         constructRating(rating);
     }, [rating]);
 
-    changeRating(2);
-
     function constructRating(currentRating: number) {
         const updatedRating = ratingArray.map((elem: JSX.Element, i: number) => {
             return (
