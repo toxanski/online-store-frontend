@@ -1,10 +1,11 @@
 import withLayout from "../../layout/Layout";
 import axios from "axios";
 import { MenuItem } from "../../interfaces/menu.interfaces";
-import { TopPageModel } from "../../interfaces/top-page.interface";
+import { TopPageCategory, TopPageModel } from "../../interfaces/top-page.interface";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext, NextPage } from "next";
 import { ParsedUrlQuery } from "node:querystring";
 import { ProductModel } from "../../interfaces/product.interface";
+import { firstLevelMenu } from "../../helpers/first-level-menu";
 
 const Course: NextPage<CourseProps> = ({ menu, page, products, firstCategory }: CourseProps) => {
     return (
@@ -16,16 +17,23 @@ const Course: NextPage<CourseProps> = ({ menu, page, products, firstCategory }: 
 
 export default withLayout(Course);
 
-const FIRST_CATEGORY = 0;
+// [type] чтобы в /courses/, /services/... не повторятся, dry
 export const getStaticPaths: GetStaticPaths = async () => {
-    // все пути уже лежат в меню, остается их вытащить и загенерить страницы
-    const { data: menu } = await axios.post<MenuItem[]>(
-        `${process.env.NEXT_PUBLIC_DOMAIN}/api/top-page/find`,
-        { firstCategory: FIRST_CATEGORY }
-    );
+    // пререндер страниц по меню первого уровня
+    let paths: string[] = [];
 
+    // firstMenuItem из хелпера
+    for (const firstMenuItem of firstLevelMenu) {
+        const { data: menu } = await axios.post<MenuItem[]>(
+            `${process.env.NEXT_PUBLIC_DOMAIN}/api/top-page/find`,
+            { firstCategory: firstMenuItem.id }
+        );
+        paths = paths.concat(menu.flatMap(item =>
+            item.pages.map(page => `/${firstMenuItem.route}/${page.alias}`))
+        );
+    }
     return {
-        paths: menu.flatMap(item => item.pages.map(page => `/courses/${page.alias}`)),
+        paths,
         fallback: true
     };
 };
@@ -37,10 +45,22 @@ export const getStaticProps: GetStaticProps = async ({ params }: GetStaticPropsC
         };
     }
 
+    const currentFirstCategory = firstLevelMenu.map(menu => {
+        return menu.route === params.type; // дин. опр. страницы - [type]
+    });
+
+    if (!currentFirstCategory) {
+        return {
+            notFound: true
+        };
+    }
+
     const { data: menu } = await axios.post<MenuItem[]>(
         `${process.env.NEXT_PUBLIC_DOMAIN}/api/top-page/find`,
-        { firstCategory: FIRST_CATEGORY }
+        { firstCategory: currentFirstCategory }
     );
+
+    console.log(menu);
 
     // страница по alias
     // params.alias т.к. страница сама [alias].tsx
@@ -48,6 +68,8 @@ export const getStaticProps: GetStaticProps = async ({ params }: GetStaticPropsC
     const { data: page } = await axios.get<TopPageModel>(
         `${process.env.NEXT_PUBLIC_DOMAIN}/api/top-page/byAlias/${reqAlias}`
     );
+
+    console.log(page)
 
     const { data: products } = await axios.post<ProductModel[]>(
         `${process.env.NEXT_PUBLIC_DOMAIN}/api/product/find`,
@@ -57,12 +79,14 @@ export const getStaticProps: GetStaticProps = async ({ params }: GetStaticPropsC
         }
     );
 
+    console.log(page);
+
     return {
         props: {
             menu,
             page,
             products,
-            firstCategory: FIRST_CATEGORY
+            firstCategory: currentFirstCategory
         }
     };
 };
@@ -71,5 +95,5 @@ export interface CourseProps extends Record<string, unknown> {
     menu: MenuItem[];
     page: TopPageModel;
     products: ProductModel[];
-    firstCategory: number;
+    firstCategory: TopPageCategory;
 }

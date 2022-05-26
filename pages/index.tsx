@@ -38,8 +38,6 @@ const Home: NextPage<HomeProps> = ({ menu, firstCategory }: HomeProps): JSX.Elem
 
 export default withLayout(Home);
 
-// TODO: допилить на бэке response - не все поля
-
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     // остальное меню грузить по необходимости
     const firstCategory = 0;
@@ -55,7 +53,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     };
 };
 
-interface HomeProps extends Record<string, unknown>{
+interface HomeProps extends Record<string, unknown> {
     menu: MenuItem[];
     firstCategory: number;
 }

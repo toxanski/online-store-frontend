@@ -1,10 +1,10 @@
 import { SidebarProps } from "./Sidebar.props";
-import Menu from "../Menu/Menu";
+import FirstLevelMenu from "../Menu/menu";
 
 const Sidebar = ({ ...props }: SidebarProps): JSX.Element => {
     return (
         <aside {...props}>
-            <Menu/>
+            <FirstLevelMenu/>
         </aside>
     );
 };
