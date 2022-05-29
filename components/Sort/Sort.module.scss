@@ -1,0 +1,33 @@
+.sort {
+    display: flex;
+    align-items: flex-end;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.sort__action {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 42px;
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
+.active .sort__ico {
+    display: block;
+}
+
+.sort__ico {
+    display: none;
+    margin-right: 8px;
+}
+
+.active {
+    color: $primary-color;
+    fill: $primary-color;
+    font-weight: 700;
+}
+
