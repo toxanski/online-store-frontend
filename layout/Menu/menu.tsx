@@ -22,7 +22,7 @@ const Menu = () => {
 
     function buildFirstLevel() {
         return (
-            <>
+            <div className='menu'>
                 {firstLevelMenu.map(firstMenuItem => (
                     <div key={firstMenuItem.route}>
                         <Link href={`/${firstMenuItem.route}`}>
@@ -38,7 +38,7 @@ const Menu = () => {
                         {firstMenuItem.id === firstCategory && buildSecondLevel(firstMenuItem)}
                     </div>
                 ))}
-            </>
+            </div>
         );
     }
 

@@ -2,7 +2,12 @@
     display: grid;
     align-items: start;
     align-content: start;
+    justify-items: start;
     gap: 20px;
+
+    ul {
+        padding: 0;
+    }
 }
 
 .logo {

@@ -1,6 +1,6 @@
 import styles from './top-page.module.scss';
 import { TopPageProps } from "./top-page.props";
-import { Sort, Tag, TitleTag } from "../../components";
+import { Product, Sort, Tag, TitleTag } from "../../components";
 import Advantages from "../../components/Advantages/Advantages";
 import { SortEnum } from "../../components/Sort/Sort.props";
 import { useReducer } from "react";
@@ -22,13 +22,13 @@ const TopPageComponent = ({ page, products, firstCategory }: TopPageProps): JSX.
 
             <div>
                 {sortState.products && sortState.products.map(product => (
-                    <div key={product._id}>{product.title}</div>
+                    <Product key={product._id} product={product}/>
                 ))}
             </div>
 
             {page.advantages && page.advantages.length > 0 &&
                 <>
-                    <TitleTag tagName='h2'>Преимущества</TitleTag>
+                    <TitleTag tagName='h2' className={styles.head}>Преимущества</TitleTag>
                     <Advantages advantages={page.advantages}/>
                 </>}
 

@@ -1,0 +1,17 @@
+.textarea {
+    background: $white-color;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    padding: 7px 15px;
+    border: none;
+    outline-color: $primary-color;
+    transition: $transition;
+    font-family: $font-family;
+    font-size: 16px;
+    line-height: 22px;
+    color: $black-color;
+
+    &::placeholder {
+        color: $grey;
+    }
+}

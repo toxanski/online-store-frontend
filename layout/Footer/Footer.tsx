@@ -9,7 +9,7 @@ const Footer = ({ className, ...props }: FooterProps): JSX.Element => {
             className={classnames(className, styles.footer)}
             {...props}>
             <div  className="title">
-                BEST.shop © {format(new Date(), 'yyyy')} Все права защищены
+                SHOPYSHOP © {format(new Date(), 'yyyy')} Все права защищены
             </div>
             <a href="#" target="_blank" className="agreement link">Пользовательское соглашение</a>
             <a href="#" target="_blank" className="policy link">Политика конфиденциальности</a>

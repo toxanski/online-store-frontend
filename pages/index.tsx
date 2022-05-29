@@ -1,5 +1,5 @@
 import type { GetStaticProps, NextPage } from 'next';
-import { TitleTag, Button, Text, Tag, Rating } from '../components';
+import { TitleTag, Button, Text, Tag, Rating, Input, Textarea } from '../components';
 import { useState } from "react";
 import withLayout from "../layout/Layout";
 import axios from "axios";
@@ -32,6 +32,8 @@ const Home: NextPage<HomeProps> = ({ menu, firstCategory }: HomeProps): JSX.Elem
             <Tag size="lg" color="green">Кр.Бол.</Tag>
             <Tag size="sm" color="grey">Кр.Бол.</Tag>
             <Rating rating={rating} isEditable={true} setRating={setRating}/>
+            <Input placeholder="Имя" />
+            <Textarea placeholder="dsa"/>
         </>
     );
 };
