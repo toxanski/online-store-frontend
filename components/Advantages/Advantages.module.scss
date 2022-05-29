@@ -1,0 +1,27 @@
+.advantage {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 10px 40px;
+    margin-bottom: 30px;
+
+    &__title {
+        align-self: center;
+    }
+
+    &__line {
+        border-left: 1px solid #d2d2d2;
+        justify-self: center;
+    }
+}
+
+.advantage__ico {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: $light-green-color;
+    border-radius: 50%;
+}
+
+

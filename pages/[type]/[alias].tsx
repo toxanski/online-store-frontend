@@ -6,11 +6,16 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsContext, NextPage } from 
 import { ParsedUrlQuery } from "node:querystring";
 import { ProductModel } from "../../interfaces/product.interface";
 import { firstLevelMenu } from "../../helpers/first-level-menu";
+import { TopPageComponent } from "../../page-components";
 
 const Course: NextPage<CourseProps> = ({ menu, page, products, firstCategory }: CourseProps) => {
     return (
         <>
-            {products && products.length}
+            <TopPageComponent
+                page={page}
+                firstCategory={firstCategory}
+                products={products}
+            />
         </>
     );
 };

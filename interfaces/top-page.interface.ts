@@ -18,8 +18,8 @@ export interface TopPageModel {
     alias: string;
     title: string;
     category: string;
-    advantages: TopPageAdvantage[];
-    seoText: string;
+    advantages?: TopPageAdvantage[];
+    seoText?: string;
     tagsTitle: string;
     tags: string[];
     createdAt: Date;
