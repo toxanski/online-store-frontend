@@ -1,21 +1,20 @@
 .product {
     display: grid;
-    grid-template-columns: [start] 70px [logoend] 30px [titlestart] calc(50% - 100px) [middle] auto [pricestart] auto [priceend] 40px [creditstart] auto [creditend] 40px [ratestart] auto [end];
+    grid-template-columns: [start] 70px [logoend] 30px [titlestart]
+    calc(50% - 100px) [middle] 1fr [pricestart] auto [priceend]
+    40px [creditstart] auto [creditend] 40px [ratestart] auto [end];
 
-    /* grid-template-columns:
-    [start] 70px [logoend] 30px [titlestart]
-     calc(50% - 100px) [middle] 1fr [pricestart] auto [priceend] 40px
-     [creditstart] auto [creditend] 40px [ratestart] auto [end]; */
     margin-bottom: 30px;
     padding: 30px;
 }
 
+// for grid-items start
 .logo {
     grid-column: start / logoend;
     grid-row: 1 / span 2;
 }
 
-.title .tags {
+.title, .tags {
     grid-column: titlestart / middle;
 }
 
@@ -29,4 +28,116 @@
 
 .rating, .reviewTitle {
     grid-column: ratestart / end;
+}
+
+.hr {
+    grid-column: start / end;
+}
+
+.description, .actions {
+    grid-column: start / end;
+}
+
+.feature {
+    grid-column: start / middle;
+}
+
+.advBlock {
+    grid-column: middle / end;
+}
+// for grid-items end
+
+.logo img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.title {
+    align-self: flex-end;
+}
+
+.price, .credit {
+    font-size: 20px;
+    line-height: 27px;
+    align-self: flex-end;
+}
+
+.price {
+    display: flex;
+    align-items: flex-end;
+}
+
+.price__old {
+    margin-left: 2px;
+}
+
+.month {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+}
+
+.category {
+    margin-top: 6px;
+}
+
+.rating {
+    align-self: flex-end;
+}
+
+.description {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 15px;
+}
+
+.priceTitle, .creditTitle, .reviewTitle {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 19px;
+}
+.advBlock {
+    font-size: 16px;
+    line-height: 22px;
+
+    h4 {
+        font-weight: 700;
+        line-height: 22px;
+        margin: 0;
+    }
+}
+
+.advantages {
+    border-left: 2px solid $success-color;
+    margin-bottom: 20px;
+    padding-left: 15px;
+    align-self: flex-start;
+}
+
+.disadvantages {
+    border-left: 2px solid $error-color;
+    padding-left: 15px;
+}
+
+.review-button {
+    margin-left: 20px;
+}
+
+.characteristic {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    padding-right: 60px;
+    font-size: 16px;
+    gap: 10px;
+    align-items: flex-end;
+    line-height: 32px;
+}
+
+.characteristicName {
+    font-weight: 700;
+}
+
+.characteristicDots {
+    border-bottom: 1px dashed #C4C4C4;
+    margin-bottom: 10px;
 }

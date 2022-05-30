@@ -1,6 +1,6 @@
-// import TitleTag from './TitleTag/TitleTag';
+// import Divider from './Divider/Divider';
 // export {
-//     TitleTag
+//     Divider
 // };
 
 export * from './TitleTag/TitleTag';
@@ -15,3 +15,4 @@ export * from './Input/Input';
 export * from './Textarea/Textarea';
 export * from './Search/Search';
 export * from './Product/Product';
+export * from './Divider/Divider';
