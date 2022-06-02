@@ -12,4 +12,20 @@
 
 .head {
     margin-top: 47px;
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 576px) {
+    .title {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .pageTitle {
+        display: inline-block;
+    }
+
+    .pageTitleTag {
+        justify-self: flex-start;
+    }
 }

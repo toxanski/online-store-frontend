@@ -13,15 +13,11 @@ const TopPageComponent = ({ page, products, firstCategory }: TopPageProps): JSX.
         dispatchSort({ type: sort });
     }
 
-    useEffect(() => {
-        console.log(products);
-    });
-
     return (
         <div className={styles.wrapper}>
             <div className={styles.title}>
-                <TitleTag tagName='h1'>{page.title}</TitleTag>
-                <Tag size='lg' color='grey'>{products && products.length}</Tag>
+                <TitleTag tagName='h1' className={styles.pageTitle}>{page.title}</TitleTag>
+                <Tag size='lg' color='grey' className={styles.pageTitleTag}>{products && products.length}</Tag>
                 <Sort sort={sortState.sort} setSort={setSort} />
             </div>
 

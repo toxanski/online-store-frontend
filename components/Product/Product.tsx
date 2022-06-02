@@ -9,20 +9,26 @@ import { TitleTag } from "../TitleTag/TitleTag";
 import { convertPriceRu } from "../../helpers/price";
 import { Divider } from "../Divider/Divider";
 import { declinationOfNum } from "../../helpers/num-declination";
+import Image from 'next/image';
 
 const Product = ({ product, className, ...props }: ProductProps): JSX.Element => {
 
-    let image;
-    if (product.image.includes('notfound')) {
-        image = `${process.env.NEXT_PUBLIC_DOMAIN}/static/notfound/notfound.png`;
-    } else {
-        image = `${process.env.NEXT_PUBLIC_DOMAIN}/static/${product.image}`;
-    }
+    // let image;
+    // if (product.image.includes('notfound')) {
+    //     image = `${process.env.NEXT_PUBLIC_DOMAIN}/static/notfound/notfound.png`;
+    // } else {
+    //     image = `${process.env.NEXT_PUBLIC_DOMAIN}/static/${product.image}`;
+    // }
 
     return (
         <Card className={classnames(className, styles.product)}>
             <div className={styles.logo}>
-                <img src={image} alt="product Image"/>
+                <Image
+                    src={`${process.env.NEXT_PUBLIC_DOMAIN}/static/${product.image}`}
+                    alt={product.title}
+                    width={70}
+                    height={60}
+                />
             </div>
             <TitleTag tagName='h3' className={styles.title}>{product.title}</TitleTag>
             <div className={styles.price}>
@@ -66,7 +72,7 @@ const Product = ({ product, className, ...props }: ProductProps): JSX.Element =>
                     <div>{product.disAdvantages}</div>
                 </div>}
             </div>
-            <Divider className={styles.hr}/>
+            <Divider className={classnames(styles.hr, styles.hr2)}/>
             <div className={styles.actions}>
                 <Button appearance='primary'>Узнать подробнее</Button>
                 <Button appearance='ghost' arrow='right' className={styles['review-button']}>Читать отзывы </Button>
