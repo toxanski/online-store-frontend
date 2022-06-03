@@ -3,8 +3,8 @@ import { TopPageProps } from "./top-page.props";
 import { Product, Sort, Tag, TitleTag } from "../../components";
 import Advantages from "../../components/Advantages/Advantages";
 import { SortEnum } from "../../components/Sort/Sort.props";
-import { useEffect, useReducer } from "react";
 import { sortReducer } from "./sort.reducer";
+import { useReducer } from "react";
 
 const TopPageComponent = ({ page, products, firstCategory }: TopPageProps): JSX.Element => {
 
