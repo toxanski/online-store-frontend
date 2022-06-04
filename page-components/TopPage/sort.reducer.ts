@@ -2,15 +2,15 @@ import { SortEnum } from "../../components/Sort/Sort.props";
 import { ProductModel } from "../../interfaces/product.interface";
 
 // export type SortActions = { type: SortEnum.Rating } | { type: SortEnum.Price };
-export type SortActions = { type: SortEnum };
+export type SortActions = { type: SortEnum } | { type: 'reset', initialState: ProductModel[] };
 
 export interface SortReducerState {
     sort: SortEnum,
     products: ProductModel[];
 }
 
-export function sortReducer(state: SortReducerState, actions: SortActions) {
-    switch (actions.type) {
+export function sortReducer(state: SortReducerState, action: SortActions) {
+    switch (action.type) {
         case SortEnum.Price:
             return {
                 sort: SortEnum.Price,
@@ -25,6 +25,11 @@ export function sortReducer(state: SortReducerState, actions: SortActions) {
                     if (!a.reviewAvg || !b.reviewAvg) return -1;
                     return a.reviewAvg > b.reviewAvg ? -1 : 1;
                 })
+            };
+        case "reset":
+            return {
+                sort: SortEnum.Rating,
+                products: action.initialState
             };
     }
 }

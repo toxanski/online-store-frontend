@@ -27,13 +27,23 @@
     margin-right: 20px;
 }
 
-.success {
+.panel {
     grid-column: start / end;
     position: relative;
-    background-color: $light-green-color;
-    border-radius: $border-radius;
     padding: 20px;
     margin-top: 20px;
+    border-radius: $border-radius;
+}
+
+.success {
+    background-color: $light-green-color;
+}
+
+.error {
+    background-color: $light-error-color;
+    .close path {
+        stroke: $error-color;
+    }
 }
 
 .successTitle {

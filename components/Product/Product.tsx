@@ -10,16 +10,25 @@ import { convertPriceRu } from "../../helpers/price";
 import { Divider } from "../Divider/Divider";
 import { declinationOfNum } from "../../helpers/num-declination";
 import Image from 'next/image';
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Review } from "../Review/Review";
 import { ReviewForm } from "../ReviewForm/ReviewForm";
 
 const Product = ({ product, className, ...props }: ProductProps): JSX.Element => {
     const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false);
+    const reviewRef = useRef<HTMLDivElement>(null);
+
+    function scrollToReview() {
+        setIsReviewOpened(true);
+        reviewRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
 
     return (
-        <>
-            <Card className={classnames(className, styles.product)}>
+        <div>
+            <Card className={styles.product}>
                 <div className={styles.logo}>
                     <Image
                         src={`${process.env.NEXT_PUBLIC_DOMAIN}/static/${product.image}`}
@@ -47,7 +56,13 @@ const Product = ({ product, className, ...props }: ProductProps): JSX.Element =>
                 <div className={styles.priceTitle}>цена</div>
                 <div className={styles.creditTitle}>кредит</div>
                 <div className={styles.reviewTitle}>
-                    {product.reviewCount} {declinationOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}
+                    <a
+                        href="#ref"
+                        onClick={scrollToReview}
+                    >
+                        {product.reviewCount}&nbsp;
+                        {declinationOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}
+                    </a>
                 </div>
                 <Divider className={styles.hr}/>
                 <div className={styles.description}>{product.description}</div>
@@ -81,19 +96,22 @@ const Product = ({ product, className, ...props }: ProductProps): JSX.Element =>
                     >Читать отзывы </Button>
                 </div>
             </Card>
-            <Card color='blue' className={classnames(styles.review, {
-                [styles.reviewOpened]: isReviewOpened,
-                [styles.reviewClosed]: !isReviewOpened
-            })}>
+            <Card
+                ref={reviewRef}
+                color='blue'
+                className={classnames(styles.review, {
+                    [styles.reviewOpened]: isReviewOpened,
+                    [styles.reviewClosed]: !isReviewOpened
+                })}>
                 {product.reviews.map(review => (
-                    <div  key={review._id}>
+                    <div key={review._id}>
                         <Review review={review}/>
                         <Divider/>
                     </div>
                 ))}
                 <ReviewForm productId={product._id}/>
             </Card>
-        </>
+        </div>
     );
 };
 

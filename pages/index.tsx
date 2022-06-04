@@ -4,6 +4,7 @@ import { useState } from "react";
 import withLayout from "../layout/Layout";
 import axios from "axios";
 import { MenuItem } from "../interfaces/menu.interfaces";
+import { API } from "../helpers/api";
 
 const Home: NextPage<HomeProps> = ({ menu, firstCategory }: HomeProps): JSX.Element => {
     const [rating, setRating] = useState<number>(2);
@@ -43,8 +44,7 @@ export default withLayout(Home);
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     // остальное меню грузить по необходимости
     const firstCategory = 0;
-    const reqUrl = `${process.env.NEXT_PUBLIC_DOMAIN}/api/top-page/find`;
-    const { data: menu } = await axios.post<MenuItem[]>(reqUrl,{
+    const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find,{
         firstCategory
     });
     return {

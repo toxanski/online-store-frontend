@@ -7,6 +7,7 @@ import { ParsedUrlQuery } from "node:querystring";
 import { ProductModel } from "../../interfaces/product.interface";
 import { firstLevelMenu } from "../../helpers/first-level-menu";
 import { TopPageComponent } from "../../page-components";
+import { API } from '../../helpers/api';
 
 const Course: NextPage<CourseProps> = ({ menu, page, products, firstCategory }: CourseProps) => {
     return (
@@ -22,7 +23,7 @@ const Course: NextPage<CourseProps> = ({ menu, page, products, firstCategory }: 
 
 export default withLayout(Course);
 
-// [type] чтобы в /courses/, /services/... не повторятся, dry
+// [type] чтобы в /courses/, /services/... не повторятся
 export const getStaticPaths: GetStaticPaths = async () => {
     // пререндер страниц по меню первого уровня
     let paths: string[] = [];
@@ -30,7 +31,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     // firstMenuItem из хелпера
     for (const firstMenuItem of firstLevelMenu) {
         const { data: menu } = await axios.post<MenuItem[]>(
-            `${process.env.NEXT_PUBLIC_DOMAIN}/api/top-page/find`,
+            API.topPage.find,
             { firstCategory: firstMenuItem.id }
         );
         paths = paths.concat(menu.flatMap(item =>
@@ -54,7 +55,7 @@ export const getStaticProps: GetStaticProps = async ({ params }: GetStaticPropsC
 
     try {
         const { data: menu } = await axios.post<MenuItem[]>(
-            `${process.env.NEXT_PUBLIC_DOMAIN}/api/top-page/find`,
+            API.topPage.find,
             { firstCategory: currentFirstCategory.id }
         );
 
@@ -64,11 +65,11 @@ export const getStaticProps: GetStaticProps = async ({ params }: GetStaticPropsC
         // params.alias т.к. страница сама [alias].tsx
         const reqAlias = params.alias;
         const { data: page } = await axios.get<TopPageModel>(
-            `${process.env.NEXT_PUBLIC_DOMAIN}/api/top-page/byAlias/${reqAlias}`
+            `${API.topPage.byAlias}/${reqAlias}`
         );
 
         const { data: products } = await axios.post<ProductModel[]>(
-            `${process.env.NEXT_PUBLIC_DOMAIN}/api/product/find`,
+            API.product.find,
             {
                 category: page.category,
                 limit: 10
