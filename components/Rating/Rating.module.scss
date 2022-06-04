@@ -9,3 +9,18 @@
 .editable {
     cursor: pointer;
 }
+
+.ratingWrapper {
+    position: relative;
+}
+
+.error .star {
+    stroke: $error-color;
+}
+
+.errorMessage {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    color: $error-color;
+}
