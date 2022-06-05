@@ -17,3 +17,4 @@ export * from './Search/Search';
 export * from './Product/Product';
 export * from './Divider/Divider';
 export * from './ReviewForm/ReviewForm.props';
+export * from './Basket/Basket';

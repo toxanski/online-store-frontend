@@ -13,6 +13,11 @@ import Image from 'next/image';
 import { useRef, useState } from "react";
 import { Review } from "../Review/Review";
 import { ReviewForm } from "../ReviewForm/ReviewForm";
+import { API } from "../../helpers/api";
+import axios from "axios";
+import Cookies from 'js-cookie';
+import jwt_decode from 'jwt-decode';
+import { UserTokenPayload } from "../Basket/Basket.inteface";
 
 const Product = ({ product, className, ...props }: ProductProps): JSX.Element => {
     const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false);
@@ -25,6 +30,19 @@ const Product = ({ product, className, ...props }: ProductProps): JSX.Element =>
             block: 'start'
         });
     }
+
+    async function addProductToCart() {
+        const token = Cookies.get('user_token');
+        if (token) {
+            // Todo: поставить гард на добавление в корзину
+            const { _id } = jwt_decode<UserTokenPayload>(token);
+            const { data } = await axios.post(`${API.cart.add}/${_id}`, {
+                "productId": product._id
+            });
+            console.log(data);
+            
+        }
+    } 
 
     return (
         <div>
@@ -87,7 +105,7 @@ const Product = ({ product, className, ...props }: ProductProps): JSX.Element =>
                 </div>
                 <Divider className={classnames(styles.hr, styles.hr2)}/>
                 <div className={styles.actions}>
-                    <Button appearance='primary'>Узнать подробнее</Button>
+                    <Button appearance='primary' onClick={addProductToCart}>Добавить в корзину</Button>
                     <Button
                         appearance='ghost'
                         arrow={isReviewOpened ? "down" : "right"}

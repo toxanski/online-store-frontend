@@ -1,6 +1,6 @@
 import styles from './top-page.module.scss';
 import { TopPageProps } from "./top-page.props";
-import { Product, Sort, Tag, TitleTag } from "../../components";
+import { Basket, Button, Product, Sort, Tag, TitleTag } from "../../components";
 import Advantages from "../../components/Advantages/Advantages";
 import { SortEnum } from "../../components/Sort/Sort.props";
 import { sortReducer } from "./sort.reducer";
@@ -23,6 +23,7 @@ const TopPageComponent = ({ page, products, firstCategory }: TopPageProps): JSX.
                 <TitleTag tagName='h1' className={styles.pageTitle}>{page.title}</TitleTag>
                 <Tag size='lg' color='grey' className={styles.pageTitleTag}>{products && products.length}</Tag>
                 <Sort sort={sortState.sort} setSort={setSort}/>
+                <Basket/>
             </div>
 
             <div>
